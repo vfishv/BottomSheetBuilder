@@ -2,13 +2,13 @@ package com.github.rubensousa.bottomsheetbuilder.sample;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.BottomSheetBehavior;
-import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import androidx.annotation.NonNull;
+import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,9 +18,6 @@ import com.github.rubensousa.bottomsheetbuilder.BottomSheetMenuDialog;
 import com.github.rubensousa.bottomsheetbuilder.adapter.BottomSheetItemClickListener;
 import com.github.rubensousa.bottomsheetbuilder.util.BottomSheetBuilderUtils;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity implements BottomSheetItemClickListener {
 
@@ -32,16 +29,12 @@ public class MainActivity extends AppCompatActivity implements BottomSheetItemCl
     private BottomSheetMenuDialog mBottomSheetDialog;
     private BottomSheetBehavior mBehavior;
 
-    @BindView(R.id.fab)
     FloatingActionButton fab;
 
-    @BindView(R.id.appbar)
     AppBarLayout appBarLayout;
 
-    @BindView(R.id.toolbar)
     Toolbar toolbar;
 
-    @BindView(R.id.coordinatorLayout)
     CoordinatorLayout coordinatorLayout;
 
     private boolean mShowingSimpleDialog;
@@ -53,8 +46,19 @@ public class MainActivity extends AppCompatActivity implements BottomSheetItemCl
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ButterKnife.bind(this);
         setSupportActionBar(toolbar);
+
+        fab = findViewById(R.id.fab);
+        appBarLayout = findViewById(R.id.appbar);
+        toolbar = findViewById(R.id.toolbar);
+        coordinatorLayout = findViewById(R.id.coordinatorLayout);
+
+        fab.setOnClickListener(v -> onFabClick());
+        findViewById(R.id.showViewBtn).setOnClickListener(v -> onShowViewClick());
+        findViewById(R.id.showDialogBtn).setOnClickListener(v -> onShowDialogClick());
+        findViewById(R.id.showDialogHeadersBtn).setOnClickListener(v -> onShowDialogHeadersClick());
+        findViewById(R.id.showDialogGridBtn).setOnClickListener(v -> onShowDialogGridClick());
+        findViewById(R.id.showDialogLongBtn).setOnClickListener(v -> onShowLongDialogClick());
 
         View bottomSheet = new BottomSheetBuilder(this, coordinatorLayout)
                 .setMode(BottomSheetBuilder.MODE_GRID)
@@ -111,21 +115,15 @@ public class MainActivity extends AppCompatActivity implements BottomSheetItemCl
         super.onDestroy();
     }
 
-    @SuppressWarnings("unused")
-    @OnClick(R.id.fab)
     public void onFabClick() {
         mBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
         fab.hide();
     }
 
-    @SuppressWarnings("unused")
-    @OnClick(R.id.showViewBtn)
     public void onShowViewClick() {
         mBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
     }
 
-    @SuppressWarnings("unused")
-    @OnClick(R.id.showDialogBtn)
     public void onShowDialogClick() {
         if (mBottomSheetDialog != null) {
             mBottomSheetDialog.dismiss();
@@ -160,8 +158,6 @@ public class MainActivity extends AppCompatActivity implements BottomSheetItemCl
     }
 
 
-    @SuppressWarnings("unused")
-    @OnClick(R.id.showDialogHeadersBtn)
     public void onShowDialogHeadersClick() {
         if (mBottomSheetDialog != null) {
             mBottomSheetDialog.dismiss();
@@ -189,8 +185,6 @@ public class MainActivity extends AppCompatActivity implements BottomSheetItemCl
         mBottomSheetDialog.show();
     }
 
-    @SuppressWarnings("unused")
-    @OnClick(R.id.showDialogGridBtn)
     public void onShowDialogGridClick() {
         if (mBottomSheetDialog != null) {
             mBottomSheetDialog.dismiss();
@@ -199,7 +193,7 @@ public class MainActivity extends AppCompatActivity implements BottomSheetItemCl
         mBottomSheetDialog = new BottomSheetBuilder(this, R.style.AppTheme_BottomSheetDialog)
                 .setMode(BottomSheetBuilder.MODE_GRID)
                 .setAppBarLayout(appBarLayout)
-                .setMenu(getResources().getBoolean(R.bool.tablet_landscape)
+                .setMenu(getResources().getBoolean(com.github.rubensousa.bottomsheetbuilder.R.bool.tablet_landscape)
                         ? R.menu.menu_bottom_grid_tablet_sheet : R.menu.menu_bottom_grid_sheet)
                 .expandOnStart(true)
                 .setItemClickListener(new BottomSheetItemClickListener() {
@@ -220,8 +214,6 @@ public class MainActivity extends AppCompatActivity implements BottomSheetItemCl
         mBottomSheetDialog.show();
     }
 
-    @SuppressWarnings("unused")
-    @OnClick(R.id.showDialogLongBtn)
     public void onShowLongDialogClick() {
         if (mBottomSheetDialog != null) {
             mBottomSheetDialog.dismiss();

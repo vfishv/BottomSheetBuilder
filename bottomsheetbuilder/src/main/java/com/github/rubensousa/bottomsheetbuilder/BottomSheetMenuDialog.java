@@ -18,11 +18,11 @@ package com.github.rubensousa.bottomsheetbuilder;
 
 import android.content.Context;
 import android.os.Build;
-import android.support.annotation.NonNull;
-import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.BottomSheetBehavior;
-import android.support.design.widget.BottomSheetDialog;
-import android.support.design.widget.CoordinatorLayout;
+import androidx.annotation.NonNull;
+import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewTreeObserver;
@@ -85,7 +85,7 @@ public class BottomSheetMenuDialog extends BottomSheetDialog implements BottomSh
     @Override
     protected void onStart() {
         super.onStart();
-        final FrameLayout sheet = findViewById(R.id.design_bottom_sheet);
+        final FrameLayout sheet = findViewById(com.google.android.material.R.id.design_bottom_sheet);
 
         if (sheet != null) {
             mBehavior = BottomSheetBehavior.from(sheet);

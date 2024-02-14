@@ -1,12 +1,21 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 27
-    buildToolsVersion '27.0.3'
+    compileSdk 34
+//    buildToolsVersion '34.0.0'
+    namespace "com.github.rubensousa.bottomsheetbuilder"
+
+    buildFeatures {
+        buildConfig = true
+        aidl = false
+        viewBinding = false
+        dataBinding = false
+        buildFeatures.compose = false
+    }
 
     defaultConfig {
         minSdkVersion 14
-        targetSdkVersion 27
+        //targetSdkVersion 28
         versionCode 1
         versionName "1.0"
     }
@@ -18,9 +27,9 @@ android {
 }
 
 dependencies {
-    implementation 'com.android.support:appcompat-v7:27.1.1'
-    implementation 'com.android.support:design:27.1.1'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.google.android.material:material:1.11.0'
 }
 
-apply from: rootProject.file('gradle/gradle-mvn-push.gradle')
-apply from: rootProject.file('gradle/gradle-bintray-upload.gradle')
+// apply from: rootProject.file('gradle/gradle-mvn-push.gradle')
+// apply from: rootProject.file('gradle/gradle-bintray-upload.gradle')
